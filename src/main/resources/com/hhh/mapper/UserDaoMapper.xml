@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hhh.dao.UserDao">
+        <select id="queryByPage" resultType="com.hhh.entity.User">
+            select id,phoneNum,username,password,province,city,nickName,sex,headPic,birthday,status
+            from c_user
+            limit #{start},#{rows}
+        </select>
+
+        <select id="queryTotals" resultType="long">
+            select count(id) from c_user
+        </select>
+
+        <insert id="insert" parameterType="com.hhh.entity.User">
+            insert into c_user(id,username,password,sex,birthday) values(#{id},#{username},#{password},#{sex},#{birthday})
+        </insert>
+        <delete id="delete">
+            delete from c_user where id=#{id}
+        </delete>
+</mapper>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hhh.dao.BannerDao">
+
+    <select id="queryAll" resultType="com.hhh.entity.Banner">
+          select id,title,imgPath,description,status,cretime from c_banner
+    </select>
+
+    <select id="queryByPage" resultType="com.hhh.entity.Banner">
+          select id,title,imgPath,description,status,cretime
+          from c_banner
+          limit #{start},#{rows}
+    </select>
+
+    <select id="queryTotals" resultType="long">
+        select count(id) from c_banner
+    </select>
+
+    <delete id="delete">
+        delete from c_banner where id=#{id}
+    </delete>
+
+    <update id="update">
+        update c_banner set title=#{title},imgPath=#{imgPath},description=#{description},status=#{status},cretime=#{cretime} where id=#{id}
+    </update>
+    <select id="queryOne" resultType="com.hhh.entity.Banner">
+        select id,title,imgPath,description,status,cretime from c_banner where id=#{id}
+    </select>
+
+    <insert id="insert" parameterType="com.hhh.entity.Banner">
+        insert into c_banner values(#{id},#{title},#{imgPath},#{description},#{status},#{cretime})
+    </insert>
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hhh.dao.AlbumDao">
+
+    <resultMap id="album" type="Album">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="publishDate" column="publishDate"/>
+        <result property="count" column="count"/>
+        <result property="coverImg" column="coverImg"/>
+        <result property="star" column="star"/>
+        <result property="author" column="author"/>
+        <result property="broadCast" column="broadCast"/>
+        <result property="brief" column="brief"/>
+            <collection property="children" ofType="com.hhh.entity.Chapter">
+                <id property="cid" column="cid"></id>
+                <result property="title" column="ctitle"/>
+                <result property="size" column="csize"/>
+                <result property="duration" column="cduration"/>
+                <result property="downPath" column="cdownPath"/>
+                <result property="uploadTime" column="cuploadTime"/>
+            </collection>
+    </resultMap>
+    <select id="queryAll" resultMap="album">
+          select a.id,a.title,a.publishDate,a.count,a.coverImg,a.star,a.author,a.broadCast,a.brief,
+                    c.cid cid,c.title ctitle,c.size csize,c.duration cduration,c.downPath cdownPath,c.uploadTime cuploadTime
+			             from c_album a left join c_chapter c on a.id=c.album_id
+    </select>
+    <insert id="insert" parameterType="com.hhh.entity.Album">
+          insert into c_album values(#{id},#{title},#{publishDate},#{count},#{coverImg},#{star},#{author},#{broadCast},#{brief})
+    </insert>
+
+
+</mapper>
